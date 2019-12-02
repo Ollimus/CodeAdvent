@@ -27,15 +27,23 @@ namespace CodeAdvent
             string filePath = Environment.CurrentDirectory + "/Input/Input.txt";
             List<string> fileContents = FileReader.ReadFile(filePath);
 
+            Task1(fileContents);
+            Task2(fileContents);
+
+            Console.ReadKey();
+        }
+
+        public static void Task1(List<String> list)
+        {
             int totalValue = 0;
 
             try
             {
-                foreach (string contents in fileContents)
+                foreach (string contents in list)
                 {
                     float convertedValue = float.Parse(contents); //Convert strings into ints.
 
-                    convertedValue /=  3;
+                    convertedValue /= 3;
                     int roundedDownValue = (int)Math.Floor(convertedValue);
                     roundedDownValue -= 2;
 
@@ -48,8 +56,45 @@ namespace CodeAdvent
                 Console.WriteLine("Error handling values. Error: " + e);
             }
 
-            Console.WriteLine(totalValue);
-            Console.ReadKey();
+            Console.WriteLine("Task 1:" + totalValue);
+        }
+
+        public static void Task2(List<String> list)
+        {
+            int totalValue = 0;
+
+            try
+            {
+                foreach (string contents in list)
+                {
+                    float convertedValue = float.Parse(contents); //Convert strings into ints.
+                    int value = 0;
+                    bool isZero = false;
+
+                    while (!isZero)
+                    {
+                        convertedValue = MathF.Floor(convertedValue / 3) - 2;
+
+                        if (convertedValue > 0)
+                        {
+                            value += (int)convertedValue;
+                        }
+
+
+                        if (convertedValue == 0 || convertedValue < 0)
+                            isZero = true;
+                    }
+
+                    totalValue += value;
+                }
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Error handling values. Error: " + e);
+            }
+
+            Console.WriteLine("Task 2:" + totalValue);
         }
     }
 }
